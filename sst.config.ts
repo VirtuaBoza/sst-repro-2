@@ -72,10 +72,10 @@ export default $config({
         NEXT_PUBLIC_TOP_SITE_URL: getSiteUrl("top"),
         NEXT_PUBLIC_OPAC_SITE_URL: getSiteUrl("opac"),
       },
-      domain: {
-        hostedZone,
-        domainName: getSiteDomain("lms"),
-      },
+      // domain: {
+      //   hostedZone,
+      //   domainName: getSiteDomain("lms"),
+      // },
     });
 
     new sst.aws.Nextjs("OPAC", {
@@ -85,10 +85,10 @@ export default $config({
         NEXT_PUBLIC_TOP_SITE_URL: getSiteUrl("top"),
         NEXT_PUBLIC_LMS_SITE_URL: getSiteUrl("lms"),
       },
-      domain: {
-        hostedZone,
-        domainName: getSiteDomain("opac"),
-      },
+      // domain: {
+      //   hostedZone,
+      //   domainName: getSiteDomain("opac"),
+      // },
     });
 
     new sst.aws.Nextjs("Top", {
@@ -100,10 +100,10 @@ export default $config({
         NEXT_PUBLIC_OPAC_SITE_URL: getSiteUrl("opac"),
         NEXT_PUBLIC_LMS_SITE_URL: getSiteUrl("lms"),
       },
-      domain: {
-        hostedZone,
-        domainName: getSiteDomain("top"),
-      },
+      // domain: {
+      //   hostedZone,
+      //   domainName: getSiteDomain("top"),
+      // },
     });
 
     return {
