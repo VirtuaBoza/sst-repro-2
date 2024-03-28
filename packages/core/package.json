@@ -1,0 +1,24 @@
+{
+  "name": "@stacks-ils-ion/core",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "sst bind vitest",
+    "typecheck": "tsc -noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.20",
+    "@types/ws": "^8.5.10",
+    "eslint": "^8",
+    "pg": "^8.11.3",
+    "tsx": "^4.7.1",
+    "vitest": "^1.3.1"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.9.0",
+    "@useverk/drizzle-pgvector": "^1.0.11",
+    "drizzle-orm": "^0.30.2",
+    "sst": "^3.0.2",
+    "ws": "^8.16.0"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "sst-repro-2",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sst dev",
+    "deploy:staging": "sst deploy --stage=staging",
+    "build": "sst shell next build packages/lms",
+    "gen:migration": "drizzle-kit generate:pg --schema=packages/core/src/sql/schema.ts --out=migrations",
+    "migrate": "sst shell tsx migrate",
+    "migrate:staging": "sst shell tsx migrate --stage=staging",
+    "studio": "sst shell npx drizzle-kit studio"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@tsconfig/node18": "^18.2.2",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "drizzle-kit": "^0.20.14",
+    "drizzle-orm": "^0.30.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-drizzle": "^0.2.3",
+    "eslint-plugin-sort-destructure-keys": "^1.5.0",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
+    "eslint-plugin-sort-keys": "^2.3.5",
+    "eslint-plugin-typescript-sort-keys": "^3.2.0",
+    "eslint-plugin-unused-imports": "^3.1.0",
+    "openai": "^4.29.2",
+    "sst": "^3.0.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "tiktoken-node": "^0.0.7"
+  }
+}

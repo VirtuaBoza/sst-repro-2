@@ -1,0 +1,18 @@
+{
+  "extends": ["next/core-web-vitals", "../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "react/jsx-sort-props": [
+          "warn",
+          {
+            "reservedFirst": true,
+            "shorthandLast": true
+          }
+        ]
+      }
+    }
+  ]
+}

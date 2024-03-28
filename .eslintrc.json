@@ -1,0 +1,29 @@
+{
+  "extends": ["plugin:drizzle/recommended"],
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": [
+    "drizzle",
+    "@typescript-eslint",
+    "sort-keys",
+    "sort-imports-es6-autofix",
+    "unused-imports",
+    "typescript-sort-keys",
+    "sort-destructure-keys"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "sort-imports-es6-autofix/sort-imports-es6": "warn",
+    "sort-keys/sort-keys-fix": "warn",
+    "unused-imports/no-unused-imports": "warn",
+    "typescript-sort-keys/interface": "warn",
+    "typescript-sort-keys/string-enum": "warn",
+    "sort-destructure-keys/sort-destructure-keys": "warn",
+    "drizzle/enforce-delete-with-where": [
+      "error",
+      {
+        "drizzleObjectName": "db"
+      }
+    ]
+  }
+}

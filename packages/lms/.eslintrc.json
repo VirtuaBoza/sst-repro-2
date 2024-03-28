@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:storybook/recommended",
+    "../../.eslintrc.json"
+  ],
+  "ignorePatterns": ["!**/*", "node_modules"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "react/jsx-sort-props": [
+          "warn",
+          {
+            "reservedFirst": true,
+            "shorthandLast": true
+          }
+        ]
+      }
+    }
+  ]
+}

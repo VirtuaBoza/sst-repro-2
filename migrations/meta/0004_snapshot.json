@@ -1,0 +1,3033 @@
+{
+  "id": "e732a8da-6256-4337-a488-77c45d813e6d",
+  "prevId": "6d2de5b8-8604-4783-8a6b-dbafd76f198c",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "account": {
+      "name": "account",
+      "schema": "",
+      "columns": {
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "providerAccountId": {
+          "name": "providerAccountId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "session_state": {
+          "name": "session_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "token_type": {
+          "name": "token_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "account_userId_user_id_fk": {
+          "name": "account_userId_user_id_fk",
+          "tableFrom": "account",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "account_provider_providerAccountId_pk": {
+          "name": "account_provider_providerAccountId_pk",
+          "columns": [
+            "provider",
+            "providerAccountId"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "book_author": {
+      "name": "book_author",
+      "schema": "",
+      "columns": {
+        "book_id": {
+          "name": "book_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "index": {
+          "name": "index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "relation": {
+          "name": "relation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "book_author_name_library_id_index": {
+          "name": "book_author_name_library_id_index",
+          "columns": [
+            "name",
+            "library_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "book_author_book_id_book_item_id_fk": {
+          "name": "book_author_book_id_book_item_id_fk",
+          "tableFrom": "book_author",
+          "tableTo": "book",
+          "columnsFrom": [
+            "book_id"
+          ],
+          "columnsTo": [
+            "item_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "book_author_library_id_library_id_fk": {
+          "name": "book_author_library_id_library_id_fk",
+          "tableFrom": "book_author",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "book_author_book_id_library_id_catalog_item_id_library_id_fk": {
+          "name": "book_author_book_id_library_id_catalog_item_id_library_id_fk",
+          "tableFrom": "book_author",
+          "tableTo": "catalog_item",
+          "columnsFrom": [
+            "book_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "book_edition_copy": {
+      "name": "book_edition_copy",
+      "schema": "",
+      "columns": {
+        "book_id": {
+          "name": "book_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "call_number": {
+          "name": "call_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "import_record_id": {
+          "name": "import_record_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "book_edition_copy_book_id_book_item_id_fk": {
+          "name": "book_edition_copy_book_id_book_item_id_fk",
+          "tableFrom": "book_edition_copy",
+          "tableTo": "book",
+          "columnsFrom": [
+            "book_id"
+          ],
+          "columnsTo": [
+            "item_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "book_edition_copy_import_record_id_marc_file_import_parsed_record_id_fk": {
+          "name": "book_edition_copy_import_record_id_marc_file_import_parsed_record_id_fk",
+          "tableFrom": "book_edition_copy",
+          "tableTo": "marc_file_import_parsed_record",
+          "columnsFrom": [
+            "import_record_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "book_edition_copy_book_id_id_library_id_catalog_item_copy_item_id_id_library_id_fk": {
+          "name": "book_edition_copy_book_id_id_library_id_catalog_item_copy_item_id_id_library_id_fk",
+          "tableFrom": "book_edition_copy",
+          "tableTo": "catalog_item_copy",
+          "columnsFrom": [
+            "book_id",
+            "id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "item_id",
+            "id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "book_edition_copy_book_id_edition_id_library_id_book_edition_book_id_id_library_id_fk": {
+          "name": "book_edition_copy_book_id_edition_id_library_id_book_edition_book_id_id_library_id_fk",
+          "tableFrom": "book_edition_copy",
+          "tableTo": "book_edition",
+          "columnsFrom": [
+            "book_id",
+            "edition_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "book_id",
+            "id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "book_edition": {
+      "name": "book_edition",
+      "schema": "",
+      "columns": {
+        "book_id": {
+          "name": "book_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "isbn_10": {
+          "name": "isbn_10",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "isbn_13": {
+          "name": "isbn_13",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "page_count": {
+          "name": "page_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "published_year": {
+          "name": "published_year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publisher_name": {
+          "name": "publisher_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "book_edition_id_book_id_library_id_index": {
+          "name": "book_edition_id_book_id_library_id_index",
+          "columns": [
+            "id",
+            "book_id",
+            "library_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "book_edition_book_id_library_id_book_item_id_library_id_fk": {
+          "name": "book_edition_book_id_library_id_book_item_id_library_id_fk",
+          "tableFrom": "book_edition",
+          "tableTo": "book",
+          "columnsFrom": [
+            "book_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "item_id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "book_reading_program": {
+      "name": "book_reading_program",
+      "schema": "",
+      "columns": {
+        "book_id": {
+          "name": "book_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "note": {
+          "name": "note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "point_value": {
+          "name": "point_value",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reading_level": {
+          "name": "reading_level",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "book_reading_program_name_library_id_index": {
+          "name": "book_reading_program_name_library_id_index",
+          "columns": [
+            "name",
+            "library_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "book_reading_program_book_id_book_item_id_fk": {
+          "name": "book_reading_program_book_id_book_item_id_fk",
+          "tableFrom": "book_reading_program",
+          "tableTo": "book",
+          "columnsFrom": [
+            "book_id"
+          ],
+          "columnsTo": [
+            "item_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "book_reading_program_library_id_library_id_fk": {
+          "name": "book_reading_program_library_id_library_id_fk",
+          "tableFrom": "book_reading_program",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "book_reading_program_book_id_library_id_catalog_item_id_library_id_fk": {
+          "name": "book_reading_program_book_id_library_id_catalog_item_id_library_id_fk",
+          "tableFrom": "book_reading_program",
+          "tableTo": "catalog_item",
+          "columnsFrom": [
+            "book_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "book_topic": {
+      "name": "book_topic",
+      "schema": "",
+      "columns": {
+        "book_id": {
+          "name": "book_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "book_topic_name_library_id_index": {
+          "name": "book_topic_name_library_id_index",
+          "columns": [
+            "name",
+            "library_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "book_topic_book_id_book_item_id_fk": {
+          "name": "book_topic_book_id_book_item_id_fk",
+          "tableFrom": "book_topic",
+          "tableTo": "book",
+          "columnsFrom": [
+            "book_id"
+          ],
+          "columnsTo": [
+            "item_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "book_topic_library_id_library_id_fk": {
+          "name": "book_topic_library_id_library_id_fk",
+          "tableFrom": "book_topic",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "book_topic_book_id_library_id_catalog_item_id_library_id_fk": {
+          "name": "book_topic_book_id_library_id_catalog_item_id_library_id_fk",
+          "tableFrom": "book_topic",
+          "tableTo": "catalog_item",
+          "columnsFrom": [
+            "book_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "book": {
+      "name": "book",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reading_grade": {
+          "name": "reading_grade",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "series_entry": {
+          "name": "series_entry",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "series_name": {
+          "name": "series_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "summary": {
+          "name": "summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_age_max": {
+          "name": "target_age_max",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_age_min": {
+          "name": "target_age_min",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "book_item_id_library_id_index": {
+          "name": "book_item_id_library_id_index",
+          "columns": [
+            "item_id",
+            "library_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "book_item_id_library_id_catalog_item_id_library_id_fk": {
+          "name": "book_item_id_library_id_catalog_item_id_library_id_fk",
+          "tableFrom": "book",
+          "tableTo": "catalog_item",
+          "columnsFrom": [
+            "item_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "catalog_item_collection_assignment": {
+      "name": "catalog_item_collection_assignment",
+      "schema": "",
+      "columns": {
+        "collection_id": {
+          "name": "collection_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "catalog_item_collection_assignment_collection_id_catalog_item_collection_id_fk": {
+          "name": "catalog_item_collection_assignment_collection_id_catalog_item_collection_id_fk",
+          "tableFrom": "catalog_item_collection_assignment",
+          "tableTo": "catalog_item_collection",
+          "columnsFrom": [
+            "collection_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "catalog_item_collection_assignment_item_id_catalog_item_id_fk": {
+          "name": "catalog_item_collection_assignment_item_id_catalog_item_id_fk",
+          "tableFrom": "catalog_item_collection_assignment",
+          "tableTo": "catalog_item",
+          "columnsFrom": [
+            "item_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "catalog_item_collection_assignment_collection_id_item_id_pk": {
+          "name": "catalog_item_collection_assignment_collection_id_item_id_pk",
+          "columns": [
+            "collection_id",
+            "item_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "catalog_item_collection": {
+      "name": "catalog_item_collection",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "policy_id": {
+          "name": "policy_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "catalog_item_collection_name_library_id_index": {
+          "name": "catalog_item_collection_name_library_id_index",
+          "columns": [
+            "name",
+            "library_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "catalog_item_collection_library_id_library_id_fk": {
+          "name": "catalog_item_collection_library_id_library_id_fk",
+          "tableFrom": "catalog_item_collection",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "catalog_item_collection_policy_id_catalog_item_policy_id_fk": {
+          "name": "catalog_item_collection_policy_id_catalog_item_policy_id_fk",
+          "tableFrom": "catalog_item_collection",
+          "tableTo": "catalog_item_policy",
+          "columnsFrom": [
+            "policy_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "catalog_item_copy": {
+      "name": "catalog_item_copy",
+      "schema": "",
+      "columns": {
+        "acquisition_date": {
+          "name": "acquisition_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "availability": {
+          "name": "availability",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'AVAILABLE'"
+        },
+        "barcode": {
+          "name": "barcode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "location": {
+          "name": "location",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "purchase_price_amount": {
+          "name": "purchase_price_amount",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'USD'"
+        }
+      },
+      "indexes": {
+        "catalog_item_copy_barcode_library_id_index": {
+          "name": "catalog_item_copy_barcode_library_id_index",
+          "columns": [
+            "barcode",
+            "library_id"
+          ],
+          "isUnique": true
+        },
+        "catalog_item_copy_id_item_id_library_id_index": {
+          "name": "catalog_item_copy_id_item_id_library_id_index",
+          "columns": [
+            "id",
+            "item_id",
+            "library_id"
+          ],
+          "isUnique": true
+        },
+        "catalog_item_copy_id_library_id_index": {
+          "name": "catalog_item_copy_id_library_id_index",
+          "columns": [
+            "id",
+            "library_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "catalog_item_copy_item_id_library_id_catalog_item_id_library_id_fk": {
+          "name": "catalog_item_copy_item_id_library_id_catalog_item_id_library_id_fk",
+          "tableFrom": "catalog_item_copy",
+          "tableTo": "catalog_item",
+          "columnsFrom": [
+            "item_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "catalog_item_policy": {
+      "name": "catalog_item_policy",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "extension_limit": {
+          "name": "extension_limit",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "loan_period_days": {
+          "name": "loan_period_days",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "catalog_item_policy_id_library_id_index": {
+          "name": "catalog_item_policy_id_library_id_index",
+          "columns": [
+            "id",
+            "library_id"
+          ],
+          "isUnique": true
+        },
+        "catalog_item_policy_name_library_id_index": {
+          "name": "catalog_item_policy_name_library_id_index",
+          "columns": [
+            "name",
+            "library_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "catalog_item_policy_library_id_library_id_fk": {
+          "name": "catalog_item_policy_library_id_library_id_fk",
+          "tableFrom": "catalog_item_policy",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "catalog_item_query": {
+      "name": "catalog_item_query",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "query": {
+          "name": "query",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "catalog_item_query_type": {
+          "name": "catalog_item_query_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PRIVATE'"
+        }
+      },
+      "indexes": {
+        "catalog_item_query_name_library_id_owner_id_index": {
+          "name": "catalog_item_query_name_library_id_owner_id_index",
+          "columns": [
+            "name",
+            "library_id",
+            "owner_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "catalog_item_query_library_id_organization_id_library_id_organization_id_fk": {
+          "name": "catalog_item_query_library_id_organization_id_library_id_organization_id_fk",
+          "tableFrom": "catalog_item_query",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id",
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id",
+            "organization_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "catalog_item_query_organization_id_owner_id_organization_user_organization_id_user_id_fk": {
+          "name": "catalog_item_query_organization_id_owner_id_organization_user_organization_id_user_id_fk",
+          "tableFrom": "catalog_item_query",
+          "tableTo": "organization_user",
+          "columnsFrom": [
+            "organization_id",
+            "owner_id"
+          ],
+          "columnsTo": [
+            "organization_id",
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "catalog_item": {
+      "name": "catalog_item",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "catalog_item_id_library_id_index": {
+          "name": "catalog_item_id_library_id_index",
+          "columns": [
+            "id",
+            "library_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "catalog_item_library_id_library_id_fk": {
+          "name": "catalog_item_library_id_library_id_fk",
+          "tableFrom": "catalog_item",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "checkout_restriction": {
+      "name": "checkout_restriction",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "item_policy_id": {
+          "name": "item_policy_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "patron_policy_id": {
+          "name": "patron_policy_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "checkout_restriction_item_policy_id_patron_policy_id_index": {
+          "name": "checkout_restriction_item_policy_id_patron_policy_id_index",
+          "columns": [
+            "item_policy_id",
+            "patron_policy_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "checkout_restriction_item_policy_id_library_id_catalog_item_policy_id_library_id_fk": {
+          "name": "checkout_restriction_item_policy_id_library_id_catalog_item_policy_id_library_id_fk",
+          "tableFrom": "checkout_restriction",
+          "tableTo": "catalog_item_policy",
+          "columnsFrom": [
+            "item_policy_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "checkout_restriction_patron_policy_id_library_id_library_patron_policy_id_library_id_fk": {
+          "name": "checkout_restriction_patron_policy_id_library_id_library_patron_policy_id_library_id_fk",
+          "tableFrom": "checkout_restriction",
+          "tableTo": "library_patron_policy",
+          "columnsFrom": [
+            "patron_policy_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "checkout": {
+      "name": "checkout",
+      "schema": "",
+      "columns": {
+        "copy_id": {
+          "name": "copy_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "due_date": {
+          "name": "due_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "extension_count": {
+          "name": "extension_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "patron_id": {
+          "name": "patron_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "returned_datetime": {
+          "name": "returned_datetime",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "checkout_copy_id_library_id_catalog_item_copy_id_library_id_fk": {
+          "name": "checkout_copy_id_library_id_catalog_item_copy_id_library_id_fk",
+          "tableFrom": "checkout",
+          "tableTo": "catalog_item_copy",
+          "columnsFrom": [
+            "copy_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "checkout_library_id_organization_id_library_id_organization_id_fk": {
+          "name": "checkout_library_id_organization_id_library_id_organization_id_fk",
+          "tableFrom": "checkout",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id",
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id",
+            "organization_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "checkout_organization_id_created_by_organization_user_organization_id_user_id_fk": {
+          "name": "checkout_organization_id_created_by_organization_user_organization_id_user_id_fk",
+          "tableFrom": "checkout",
+          "tableTo": "organization_user",
+          "columnsFrom": [
+            "organization_id",
+            "created_by"
+          ],
+          "columnsTo": [
+            "organization_id",
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "checkout_patron_id_organization_id_patron_id_organization_id_fk": {
+          "name": "checkout_patron_id_organization_id_patron_id_organization_id_fk",
+          "tableFrom": "checkout",
+          "tableTo": "patron",
+          "columnsFrom": [
+            "patron_id",
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id",
+            "organization_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "hold": {
+      "name": "hold",
+      "schema": "",
+      "columns": {
+        "copy_id": {
+          "name": "copy_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "patron_id": {
+          "name": "patron_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hold_status": {
+          "name": "hold_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ACTIVE'"
+        }
+      },
+      "indexes": {
+        "hold_item_id_patron_id_index": {
+          "name": "hold_item_id_patron_id_index",
+          "columns": [
+            "item_id",
+            "patron_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "hold_copy_id_item_id_library_id_catalog_item_copy_id_item_id_library_id_fk": {
+          "name": "hold_copy_id_item_id_library_id_catalog_item_copy_id_item_id_library_id_fk",
+          "tableFrom": "hold",
+          "tableTo": "catalog_item_copy",
+          "columnsFrom": [
+            "copy_id",
+            "item_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "id",
+            "item_id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "hold_item_id_library_id_catalog_item_id_library_id_fk": {
+          "name": "hold_item_id_library_id_catalog_item_id_library_id_fk",
+          "tableFrom": "hold",
+          "tableTo": "catalog_item",
+          "columnsFrom": [
+            "item_id",
+            "library_id"
+          ],
+          "columnsTo": [
+            "id",
+            "library_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "hold_library_id_organization_id_library_id_organization_id_fk": {
+          "name": "hold_library_id_organization_id_library_id_organization_id_fk",
+          "tableFrom": "hold",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id",
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id",
+            "organization_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "hold_patron_id_organization_id_patron_id_organization_id_fk": {
+          "name": "hold_patron_id_organization_id_patron_id_organization_id_fk",
+          "tableFrom": "hold",
+          "tableTo": "patron",
+          "columnsFrom": [
+            "patron_id",
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id",
+            "organization_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "hold_copy_id_unique": {
+          "name": "hold_copy_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "copy_id"
+          ]
+        }
+      }
+    },
+    "holiday": {
+      "name": "holiday",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "holiday_organization_id_organization_id_fk": {
+          "name": "holiday_organization_id_organization_id_fk",
+          "tableFrom": "holiday",
+          "tableTo": "organization",
+          "columnsFrom": [
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "library": {
+      "name": "library",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "default_concurrent_loan_limit": {
+          "name": "default_concurrent_loan_limit",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 10
+        },
+        "default_extension_limit": {
+          "name": "default_extension_limit",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "default_loan_period_days": {
+          "name": "default_loan_period_days",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 10
+        },
+        "exclude_holidays_weekends": {
+          "name": "exclude_holidays_weekends",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "library_id_organization_id_index": {
+          "name": "library_id_organization_id_index",
+          "columns": [
+            "id",
+            "organization_id"
+          ],
+          "isUnique": true
+        },
+        "library_name_organization_id_index": {
+          "name": "library_name_organization_id_index",
+          "columns": [
+            "name",
+            "organization_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "library_organization_id_organization_id_fk": {
+          "name": "library_organization_id_organization_id_fk",
+          "tableFrom": "library",
+          "tableTo": "organization",
+          "columnsFrom": [
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "library_checkout_ceiling": {
+      "name": "library_checkout_ceiling",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "to_date": {
+          "name": "to_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "library_checkout_ceiling_library_id_library_id_fk": {
+          "name": "library_checkout_ceiling_library_id_library_id_fk",
+          "tableFrom": "library_checkout_ceiling",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "library_patron_policy": {
+      "name": "library_patron_policy",
+      "schema": "",
+      "columns": {
+        "concurrent_loan_limit": {
+          "name": "concurrent_loan_limit",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "extension_limit": {
+          "name": "extension_limit",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "loan_period_days": {
+          "name": "loan_period_days",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "library_patron_policy_id_library_id_index": {
+          "name": "library_patron_policy_id_library_id_index",
+          "columns": [
+            "id",
+            "library_id"
+          ],
+          "isUnique": true
+        },
+        "library_patron_policy_name_library_id_index": {
+          "name": "library_patron_policy_name_library_id_index",
+          "columns": [
+            "name",
+            "library_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "library_patron_policy_library_id_organization_id_library_id_organization_id_fk": {
+          "name": "library_patron_policy_library_id_organization_id_library_id_organization_id_fk",
+          "tableFrom": "library_patron_policy",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id",
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id",
+            "organization_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "marc_file_import_failed_record": {
+      "name": "marc_file_import_failed_record",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "import_id": {
+          "name": "import_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "raw": {
+          "name": "raw",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "marc_file_import_failed_record_import_id_marc_file_import_id_fk": {
+          "name": "marc_file_import_failed_record_import_id_marc_file_import_id_fk",
+          "tableFrom": "marc_file_import_failed_record",
+          "tableTo": "marc_file_import",
+          "columnsFrom": [
+            "import_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "marc_file_import_parsed_record": {
+      "name": "marc_file_import_parsed_record",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "import_id": {
+          "name": "import_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parsed": {
+          "name": "parsed",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "raw": {
+          "name": "raw",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "marc_file_import_parsed_record_import_id_marc_file_import_id_fk": {
+          "name": "marc_file_import_parsed_record_import_id_marc_file_import_id_fk",
+          "tableFrom": "marc_file_import_parsed_record",
+          "tableTo": "marc_file_import",
+          "columnsFrom": [
+            "import_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "marc_file_import": {
+      "name": "marc_file_import",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "duplicate_barcode_behavior": {
+          "name": "duplicate_barcode_behavior",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "file_key": {
+          "name": "file_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "no_barcode_behavior": {
+          "name": "no_barcode_behavior",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PENDING'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "marc_file_import_library_id_library_id_fk": {
+          "name": "marc_file_import_library_id_library_id_fk",
+          "tableFrom": "marc_file_import",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "one_roster_integration_config": {
+      "name": "one_roster_integration_config",
+      "schema": "",
+      "columns": {
+        "base_url": {
+          "name": "base_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_id": {
+          "name": "client_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_secret": {
+          "name": "client_secret",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "token_url": {
+          "name": "token_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "one_roster_integration_config_organization_id_organization_id_fk": {
+          "name": "one_roster_integration_config_organization_id_organization_id_fk",
+          "tableFrom": "one_roster_integration_config",
+          "tableTo": "organization",
+          "columnsFrom": [
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "organization_invite": {
+      "name": "organization_invite",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "normalized_email": {
+          "name": "normalized_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "organization_invite_normalized_email_organization_id_index": {
+          "name": "organization_invite_normalized_email_organization_id_index",
+          "columns": [
+            "normalized_email",
+            "organization_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "organization_invite_organization_id_organization_id_fk": {
+          "name": "organization_invite_organization_id_organization_id_fk",
+          "tableFrom": "organization_invite",
+          "tableTo": "organization",
+          "columnsFrom": [
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "organization_user": {
+      "name": "organization_user",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "organization_user_organization_id_organization_id_fk": {
+          "name": "organization_user_organization_id_organization_id_fk",
+          "tableFrom": "organization_user",
+          "tableTo": "organization",
+          "columnsFrom": [
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "organization_user_user_id_user_id_fk": {
+          "name": "organization_user_user_id_user_id_fk",
+          "tableFrom": "organization_user",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "organization_user_organization_id_user_id_pk": {
+          "name": "organization_user_organization_id_user_id_pk",
+          "columns": [
+            "organization_id",
+            "user_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "organization": {
+      "name": "organization",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "how_heard": {
+          "name": "how_heard",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "patron_group_assignment": {
+      "name": "patron_group_assignment",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "group_id": {
+          "name": "group_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "one_roster_sourced_id": {
+          "name": "one_roster_sourced_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "patron_id": {
+          "name": "patron_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "patron_group_assignment_one_roster_sourced_id_organization_id_index": {
+          "name": "patron_group_assignment_one_roster_sourced_id_organization_id_index",
+          "columns": [
+            "one_roster_sourced_id",
+            "organization_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "patron_group_assignment_organization_id_group_id_patron_group_organization_id_id_fk": {
+          "name": "patron_group_assignment_organization_id_group_id_patron_group_organization_id_id_fk",
+          "tableFrom": "patron_group_assignment",
+          "tableTo": "patron_group",
+          "columnsFrom": [
+            "organization_id",
+            "group_id"
+          ],
+          "columnsTo": [
+            "organization_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "patron_group_assignment_organization_id_patron_id_patron_organization_id_id_fk": {
+          "name": "patron_group_assignment_organization_id_patron_id_patron_organization_id_id_fk",
+          "tableFrom": "patron_group_assignment",
+          "tableTo": "patron",
+          "columnsFrom": [
+            "organization_id",
+            "patron_id"
+          ],
+          "columnsTo": [
+            "organization_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "patron_group_library_policy_assignment": {
+      "name": "patron_group_library_policy_assignment",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "group_id": {
+          "name": "group_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "library_id": {
+          "name": "library_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "policy_id": {
+          "name": "policy_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "patron_group_library_policy_assignment_group_id_organization_id_patron_group_id_organization_id_fk": {
+          "name": "patron_group_library_policy_assignment_group_id_organization_id_patron_group_id_organization_id_fk",
+          "tableFrom": "patron_group_library_policy_assignment",
+          "tableTo": "patron_group",
+          "columnsFrom": [
+            "group_id",
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id",
+            "organization_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "patron_group_library_policy_assignment_library_id_organization_id_library_id_organization_id_fk": {
+          "name": "patron_group_library_policy_assignment_library_id_organization_id_library_id_organization_id_fk",
+          "tableFrom": "patron_group_library_policy_assignment",
+          "tableTo": "library",
+          "columnsFrom": [
+            "library_id",
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id",
+            "organization_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "patron_group_library_policy_assignment_library_id_policy_id_library_patron_policy_library_id_id_fk": {
+          "name": "patron_group_library_policy_assignment_library_id_policy_id_library_patron_policy_library_id_id_fk",
+          "tableFrom": "patron_group_library_policy_assignment",
+          "tableTo": "library_patron_policy",
+          "columnsFrom": [
+            "library_id",
+            "policy_id"
+          ],
+          "columnsTo": [
+            "library_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "patron_group_library_policy_assignment_group_id_policy_id_pk": {
+          "name": "patron_group_library_policy_assignment_group_id_policy_id_pk",
+          "columns": [
+            "group_id",
+            "policy_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "patron_group": {
+      "name": "patron_group",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "one_roster_sourced_id": {
+          "name": "one_roster_sourced_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "patron_group_id_organization_id_index": {
+          "name": "patron_group_id_organization_id_index",
+          "columns": [
+            "id",
+            "organization_id"
+          ],
+          "isUnique": true
+        },
+        "patron_group_name_organization_id_index": {
+          "name": "patron_group_name_organization_id_index",
+          "columns": [
+            "name",
+            "organization_id"
+          ],
+          "isUnique": true
+        },
+        "patron_group_one_roster_sourced_id_organization_id_index": {
+          "name": "patron_group_one_roster_sourced_id_organization_id_index",
+          "columns": [
+            "one_roster_sourced_id",
+            "organization_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "patron_group_organization_id_organization_id_fk": {
+          "name": "patron_group_organization_id_organization_id_fk",
+          "tableFrom": "patron_group",
+          "tableTo": "organization",
+          "columnsFrom": [
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "patron_import": {
+      "name": "patron_import",
+      "schema": "",
+      "columns": {
+        "classes_file_key": {
+          "name": "classes_file_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "demographics_file_key": {
+          "name": "demographics_file_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "enrollments_file_key": {
+          "name": "enrollments_file_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sync_id": {
+          "name": "sync_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "users_file_key": {
+          "name": "users_file_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "patron_import_organization_id_sync_id_patron_sync_organization_id_id_fk": {
+          "name": "patron_import_organization_id_sync_id_patron_sync_organization_id_id_fk",
+          "tableFrom": "patron_import",
+          "tableTo": "patron_sync",
+          "columnsFrom": [
+            "organization_id",
+            "sync_id"
+          ],
+          "columnsTo": [
+            "organization_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "patron_query": {
+      "name": "patron_query",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "query": {
+          "name": "query",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PRIVATE'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "patron_query_organization_id_owner_id_organization_user_organization_id_user_id_fk": {
+          "name": "patron_query_organization_id_owner_id_organization_user_organization_id_user_id_fk",
+          "tableFrom": "patron_query",
+          "tableTo": "organization_user",
+          "columnsFrom": [
+            "organization_id",
+            "owner_id"
+          ],
+          "columnsTo": [
+            "organization_id",
+            "user_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "patron_sync": {
+      "name": "patron_sync",
+      "schema": "",
+      "columns": {
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "groups_added": {
+          "name": "groups_added",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "groups_deleted": {
+          "name": "groups_deleted",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "groups_updated": {
+          "name": "groups_updated",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "patron_group_assignments_added": {
+          "name": "patron_group_assignments_added",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "patron_group_assignments_deleted": {
+          "name": "patron_group_assignments_deleted",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "patrons_added": {
+          "name": "patrons_added",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "patrons_deleted": {
+          "name": "patrons_deleted",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "patrons_updated": {
+          "name": "patrons_updated",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'PENDING'"
+        }
+      },
+      "indexes": {
+        "patron_sync_id_organization_id_index": {
+          "name": "patron_sync_id_organization_id_index",
+          "columns": [
+            "id",
+            "organization_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "patron_sync_organization_id_organization_id_fk": {
+          "name": "patron_sync_organization_id_organization_id_fk",
+          "tableFrom": "patron_sync",
+          "tableTo": "organization",
+          "columnsFrom": [
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "patron": {
+      "name": "patron",
+      "schema": "",
+      "columns": {
+        "barcode": {
+          "name": "barcode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "birth_date": {
+          "name": "birth_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted": {
+          "name": "deleted",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gender": {
+          "name": "gender",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "one_roster_sourced_id": {
+          "name": "one_roster_sourced_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "preferred_name": {
+          "name": "preferred_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "patron_barcode_organization_id_index": {
+          "name": "patron_barcode_organization_id_index",
+          "columns": [
+            "barcode",
+            "organization_id"
+          ],
+          "isUnique": true
+        },
+        "patron_id_organization_id_index": {
+          "name": "patron_id_organization_id_index",
+          "columns": [
+            "id",
+            "organization_id"
+          ],
+          "isUnique": true
+        },
+        "patron_one_roster_sourced_id_organization_id_index": {
+          "name": "patron_one_roster_sourced_id_organization_id_index",
+          "columns": [
+            "one_roster_sourced_id",
+            "organization_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "patron_organization_id_organization_id_fk": {
+          "name": "patron_organization_id_organization_id_fk",
+          "tableFrom": "patron",
+          "tableTo": "organization",
+          "columnsFrom": [
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "session": {
+      "name": "session",
+      "schema": "",
+      "columns": {
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sessionToken": {
+          "name": "sessionToken",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "session_userId_user_id_fk": {
+          "name": "session_userId_user_id_fk",
+          "tableFrom": "session",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "user": {
+      "name": "user",
+      "schema": "",
+      "columns": {
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "verificationToken": {
+      "name": "verificationToken",
+      "schema": "",
+      "columns": {
+        "expires": {
+          "name": "expires",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "identifier": {
+          "name": "identifier",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "verificationToken_identifier_token_pk": {
+          "name": "verificationToken_identifier_token_pk",
+          "columns": [
+            "identifier",
+            "token"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

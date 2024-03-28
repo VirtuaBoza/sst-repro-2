@@ -1,0 +1,30 @@
+{
+  "folders": [
+    {
+      "path": "packages/top"
+    },
+    {
+      "path": "packages/opac"
+    },
+    {
+      "path": "packages/lms"
+    },
+    {
+      "path": "packages/functions"
+    },
+    {
+      "path": "packages/core"
+    },
+    {
+      "path": ".",
+      "name": "root"
+    }
+  ],
+  "settings": {
+    "cSpell.words": ["OPAC"],
+    "search.exclude": {
+      "**/.sst": true
+    },
+    "vitest.enable": true
+  }
+}
